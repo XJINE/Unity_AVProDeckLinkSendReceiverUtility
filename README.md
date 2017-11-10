@@ -14,4 +14,4 @@ NOTE: AVPro traial assets are licensed under their own license.
 This system checked with DeckLink 4K Pro on Windows 10, and the format is 4K ARGB 8bit 30fps.
 
 ![](https://github.com/XJINE/Unity_AVProDeckLinkSendReceiverUtility/blob/master/screenshot01.png)
-![](https://github.com/XJINE/Unity_AVProDeckLinkSendReceiverUtility/blob/master/screenshot02.png)
+![](https://github.com/XJINE/Unity_AVProDeckLinkSendReceiverUtility/blob/master/screenshot02.jpg)
