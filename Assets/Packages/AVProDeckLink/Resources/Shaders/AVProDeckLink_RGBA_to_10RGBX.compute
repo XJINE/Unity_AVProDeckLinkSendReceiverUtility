@@ -1,0 +1,78 @@
+﻿//-----------------------------------------------------------------------------
+// Copyright 2014-2017 RenderHeads Ltd.  All rights reserved.
+//-----------------------------------------------------------------------------
+
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel RGBA_to_10RGBX
+
+Texture2D input;
+RWStructuredBuffer<uint> result;
+
+struct Parameters{ 
+	uint width;
+	uint height;
+	uint bufferWidth;
+	uint bigEndian;
+	uint leading;
+	bool isLinear;
+};
+
+RWStructuredBuffer<Parameters> constBuffer;
+
+[numthreads(8,8,1)]
+void RGBA_to_10RGBX(uint3 id : SV_DispatchThreadID)
+{
+	if (id.x >= constBuffer[0].width || id.y >= constBuffer[0].height) {
+		return;
+	}
+
+	uint yFixed = constBuffer[0].height - id.y - 1;
+
+	float4 rgba = input[uint2(id.x, yFixed)];
+	if (constBuffer[0].isLinear == 1)
+	{
+		rgba = pow(abs(rgba), 1.0 / 2.2);
+	}
+
+	uint r = rgba.r * 1023 + 0.5;
+	uint g = rgba.g * 1023 + 0.5;
+	uint b = rgba.b * 1023 + 0.5;
+	
+	uint output = 0;
+	if (constBuffer[0].leading == 1) {
+		if (constBuffer[0].bigEndian == 1) {
+			output |= b << 0;
+			output |= g << 10;
+			output |= r << 20;
+
+			output |= 1023;
+		}
+		else {
+			output |= (r & 1008) >> 4;
+			output |= (r & 15) << 12;
+			output |= (g & 960) << 2;
+			output |= (g & 63) << 18;
+			output |= (b & 768) << 8;
+			output |= (b & 255) << 24;
+		}
+	}
+	else {
+		if (constBuffer[0].bigEndian == 1) {
+			output |= (b & 252) << 26;
+			output |= (b & 960) << 10;
+			output |= (g & 15) << 20;
+			output |= (g & 1008) << 4;
+			output |= (r & 3) << 14;
+			output |= (r & 1020) >> 2;
+		}
+		else {
+			output |= (r << 22);
+			output |= (g << 12);
+			output |= (b << 2);
+		}
+	}
+
+	uint bufferPos = constBuffer[0].bufferWidth * id.y + id.x;
+
+	result[bufferPos] = output;
+}

@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 0503d6856ddf45c44a333ab8effc7274
+timeCreated: 1469478038
+licenseType: Pro
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - _shader_YCbCr_8bpp_422: {fileID: 4800000, guid: a3f3334f958e8ca4db20e404abb15969,
+      type: 3}
+  - _shader_YCbCr_10bpp_422: {fileID: 4800000, guid: 651e5120abef1de439ca4ad0c8535d3f,
+      type: 3}
+  - _shader_ARGB_8bpp_444: {fileID: 4800000, guid: 6aa353f8aa67a314b8a9aa3c7d484caa,
+      type: 3}
+  - _shader_BGRA_8bpp_444: {fileID: 4800000, guid: 356681808e6621b4d99dfa4612b46a00,
+      type: 3}
+  - _shader_RGB_10bpp_444: {fileID: 4800000, guid: c2e526b3abab94a4d84abf1896f471d8,
+      type: 3}
+  - _shaderDeinterlace: {fileID: 4800000, guid: 17d9dd39639d60f4894593350fcf5fd0,
+      type: 3}
+  executionOrder: -200
+  icon: {fileID: 2800000, guid: 1ecaef6eeb7d34242aa47050006a8a9a, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,53 @@
+﻿//-----------------------------------------------------------------------------
+// Copyright 2014-2017 RenderHeads Ltd.  All rights reserved.
+//-----------------------------------------------------------------------------
+
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel RGBX10_to_RGBA
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+Texture2D<uint> input;
+RWTexture2D<float4> result;
+
+struct Parameters{
+	uint width;
+	uint height;
+	bool bigEndian;
+};
+
+RWStructuredBuffer<Parameters> constBuffer;
+
+[numthreads(8,8,1)]
+void RGBX10_to_RGBA(uint3 id : SV_DispatchThreadID)
+{
+	if (id.x >= constBuffer[0].width || id.y >= constBuffer[0].height) {
+		return;
+	}
+	
+	int3 extractedRGB;
+
+	uint rgb10Val = input[id.xy];
+
+	if (constBuffer[0].bigEndian) {
+		uint mask = 1023;
+		
+		extractedRGB.r = rgb10Val >> 22;
+		extractedRGB.g = (rgb10Val >> 12) & mask;
+		extractedRGB.b = (rgb10Val >> 2) & mask;
+	}
+	else{
+		uint bytes[4];
+
+		for (uint shift = 0U; shift < 32U; shift += 8U) {
+			bytes[shift / 8U] = (rgb10Val >> shift) & 255U;
+		}
+		
+		extractedRGB.r = ((bytes[0] << 8) | bytes[1]) >> 6;
+		extractedRGB.g = (((bytes[1] << 8) | bytes[2]) >> 4) & 1023U;
+		extractedRGB.b = (((bytes[2] << 8) | bytes[3]) >> 2) & 1023U;
+	}
+	
+	
+	result[id.xy] = float4((float)extractedRGB.r / 1023.0, (float)extractedRGB.g / 1023.0, (float)extractedRGB.b / 1023.0, 1.0);
+}
