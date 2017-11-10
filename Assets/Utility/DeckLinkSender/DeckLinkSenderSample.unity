@@ -157,15 +157,15 @@ MonoBehaviour:
   _filterModeByResolution: 1
   _filterModeByFormat: 1
   _filterModeByFPS: 1
-  _filterModeByInterlacing: 0
+  _filterModeByInterlacing: 1
   _modeWidth: 3840
   _modeHeight: 2160
   _modeFormat: 2
-  _modeFPS: 60
-  _modeInterlacing: 1
+  _modeFPS: 30
+  _modeInterlacing: 0
   _antiAliasingLevel: 2
   _bufferBalance: 3
-  _noCameraMode: 0
+  _noCameraMode: 2
   _defaultTexture: {fileID: 0}
   _defaultColour: {r: 0, g: 0, b: 0, a: 0}
   _camera: {fileID: 936363927}

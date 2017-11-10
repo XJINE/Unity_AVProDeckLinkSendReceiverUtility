@@ -299,14 +299,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3de2420ab8a8a3a4195644f0063fa490, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _showExplorer: 1
+  _showExplorer: 0
   _expandPreview: 0
   _deviceIndex: -1
   _modeIndex: -1
   _resolutionIndex: -1
   _playOnStart: 1
   _expandDeviceSel: 1
-  _expandModeSel: 1
+  _expandModeSel: 0
   _expandAbout: 0
   _exactDeviceName: 0
   _desiredDeviceName: DeckLink
@@ -314,10 +314,10 @@ MonoBehaviour:
   _exactDeviceIndex: 0
   _filterDeviceByName: 1
   _filterDeviceByIndex: 0
-  _filterModeByResolution: 1
-  _filterModeByFormat: 1
-  _filterModeByFPS: 1
-  _filterModeByInterlacing: 1
+  _filterModeByResolution: 0
+  _filterModeByFormat: 0
+  _filterModeByFPS: 0
+  _filterModeByInterlacing: 0
   _modeWidth: 1920
   _modeHeight: 1080
   _modeFormat: 2
